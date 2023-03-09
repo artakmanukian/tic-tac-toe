@@ -21,6 +21,7 @@ class Board extends React.Component {
   }
 
   render() {
+  
     return (
       <div>
         <div className="board-row">
@@ -133,9 +134,15 @@ class Game extends React.Component {
       const desc = move
         ? 'Jump to the move #' + move + ' ' + position
         : 'Back to the start of the game';
+      const active = move === this.state.stepNumber && move !== 0;
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button
+            onClick={() => this.jumpTo(move)}
+            className={`nav ${active ? 'active' : null}`}
+          >
+            {desc}
+          </button>
         </li>
       );
     });

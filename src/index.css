@@ -1,10 +1,16 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  color: #333333;
+}
+button {
+  color: #3D3C42;
+  cursor: pointer;
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding: 0;
+  list-style-type: none;
 }
 
 .board-row:after {
@@ -18,6 +24,7 @@ ol, ul {
 }
 
 .square {
+  color: #428bca;
   background: #fff;
   border: 1px solid #999;
   float: left;
@@ -47,4 +54,16 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+.nav {
+  margin-bottom: 6px;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  padding: 4px 8px;
+  background-color: #ffffff;
+}
+.active {
+  border: 1px solid #428bca;
+  color: #f5f5f5;
+  background-color: #428bca;
 }
