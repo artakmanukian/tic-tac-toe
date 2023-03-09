@@ -50,6 +50,7 @@ class Game extends React.Component {
       history: [
         {
           squares: Array(9).fill(null),
+          stepPosition: null,
         },
       ],
       stepNumber: 0,
@@ -57,10 +58,43 @@ class Game extends React.Component {
     };
   }
 
+  getPosition(i) {
+    const position = {
+      column: null,
+      row: null,
+    };
+    const columns = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ];
+    const rows = [
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+    ];
+    columns.forEach((item, index) => {
+      if (!item.includes(i)) {
+        return;
+      }
+      position.column = index + 1;
+    });
+    rows.forEach((item, index) => {
+      if (!item.includes(i)) {
+        return;
+      }
+      position.row = index + 1;
+    });
+
+    return position;
+  }
+
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    const position = this.getPosition(i);
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -69,6 +103,7 @@ class Game extends React.Component {
       history: history.concat([
         {
           squares: squares,
+          stepPosition: position,
         },
       ]),
       stepNumber: history.length,
@@ -89,8 +124,14 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
+      const position = step.stepPosition
+        ? 'column: ' +
+          step.stepPosition.column +
+          ' row: ' +
+          step.stepPosition.row
+        : '';
       const desc = move
-        ? 'Jump to the move #' + move
+        ? 'Jump to the move #' + move + ' ' + position
         : 'Back to the start of the game';
       return (
         <li key={move}>
